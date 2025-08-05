@@ -13,10 +13,10 @@ const PokemonCard = ({ e }) => {
  return ( 
   <div
     style={{
-      maxWidth: "min-content",
-      padding: "4px",
-      margin: "4px",
-      border: "1px solid black",
+      Width: "800px",
+      padding: "12px",
+      margin: "12px",
+      border: "4px solid pink",
      }}
   >
     <span>{e.name}</span>
@@ -26,20 +26,32 @@ const PokemonCard = ({ e }) => {
     </div>
  );
 };
- 
+
+ const PAGE_SIZE=3
 const App = () => {
   const [data, setData] = useState({});
+  const [page, setPage] = useState(0)
   useEffect (() => {
-    fetch("https://pokeapi.co//api/v2/pokemon?limit=3&offset=0")
+    fetch(
+      "https://pokeapi.co//api/v2/pokemon?limit=" + 
+       PAGE_SIZE + 
+       "&offset=" +
+       PAGE_SIZE * page,
+    )
      .then((x) => x.json())
      .then((x) => setData(x));
-  }, []);
+  }, [page]);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column"}}>
+    <div style={{ display: "flex", flexDirection: "column", backgroundColor: "grey", minHeight: "100vh",}}>
+      <h1 style={{ marginTop: "20px", color: "pink"}}>Pokemon Kataloğu</h1>
       {data.results?.map((e) => (
-      <PokemonCard key={e.name} e={e} />
+       <PokemonCard key={e.name} e={e} />
       ))}
+     <div style={{ display: "flex", flexDirection: "row"}}>
+       <button onClick={() => setPage((ps) => ps - 1)}>prev</button>
+       <button onClick={() => setPage((ps) => ps + 1)}>next</button>
+      </div>
     </div>
   );
 };
