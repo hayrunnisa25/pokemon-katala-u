@@ -47,11 +47,19 @@ export default function App() {
         ))}
       </div>
       <div>
-        <button onClick={() => setOffset(prev => Math.max(prev - limit, 0))}>
+        <button onClick={() =>{ setOffset(prev => Math.max(prev - limit, 0));
+        setPage(prev => Math.max(prev -1, 1));
+         }}>
         Geri
         </button>
-        <span>{page}</span>
-        <button onClick={() => setOffset(prev => prev + limit)}>İleri
+
+        <span style={{ margin: "0 10px"}}>{page}</span>
+
+        <button onClick={() =>{
+             setOffset(prev => prev + limit);
+             setPage(prev => prev + 1);
+        }}>
+            İleri
          </button>
       </div>
     </div>
