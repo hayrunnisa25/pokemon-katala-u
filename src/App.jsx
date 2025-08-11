@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { RunnableDevEnvironment } from "vite";
 
 export default function App() {
   const [data, setData] = useState([]);
@@ -22,14 +23,14 @@ export default function App() {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <h1>Pokémon Kataloğu</h1>
+      <h1>Pokemon Kataloğu</h1>
       <input
         placeholder="Ara..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
       <div style={{ display: "flex", justifyContent: "center", gap: "10px", marginTop: "40px" }}>
-        {filtered.map((p) => (
+        {filtered.map ((p) => (
          <div
          key={p.id}
          style={{
@@ -38,15 +39,30 @@ export default function App() {
          borderRadius: "8px",
          textAlign: "center",
          width: "120",
+         display: "flex",
+         flexDirection: "column",
+         justifyContent: "space-between",
          }}
          >
+            <div style={{ fontWeight: "bold", fontSize: "18px", marginBottom: "8px"}}>
+            {p.name}
+            </div>
+
+            <div style={{ display: "flex", justifycontent: "space-between", alignItems: "flex-end"}}>
+            <div style={{ fontSize: "14px"}}>
+            <div>Tip: {p.types[0].type.name}</div>
+            <div>Boy: {p.height/10}m</div>
+            <div>Kilo:{p.weight/10}kg</div>
+            <div>
           <img src={p.sprites.front_default} alt={p.name} />
-            <div>{p.name}</div>
-            <div>#{p.id}</div>
           </div>
-        ))}
-      </div>
-      <div>
+
+          <div style={{ marginTop: "8px", fontSize: "12px"}}>
+            #{p.id}
+          </div>
+        ) ) }
+        </div>
+       <div>
         <button onClick={() =>{ setOffset(prev => Math.max(prev - limit, 0));
         setPage(prev => Math.max(prev -1, 1));
          }}>
