@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 export default function App() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
   const limit = 3;
 
@@ -84,18 +83,17 @@ export default function App() {
         <button
           onClick={() => {
             setOffset((prev) => Math.max(prev - limit, 0));
-            setPage((prev) => Math.max(prev - 1, 1));
           }}
         >
           Geri
         </button>
 
-        <span style={{ margin: "0 10px" }}>{page}</span>
+        <span style={{ margin: "0 10px" }}>
+        {Math.floor (offset / limit) + 1 } </span>
 
         <button
           onClick={() => {
             setOffset((prev) => prev + limit);
-            setPage((prev) => prev + 1);
           }}
         >
           İleri
